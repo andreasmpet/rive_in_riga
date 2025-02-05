@@ -33,7 +33,10 @@ dependencies:
 
 
   rive: ^0.13.20
-
+#  rive:
+#    git:
+#      url: git@github.com:rive-app/rive-flutter.git
+#      ref: e922617d5c8c71d41040f79d22a6a02224009cd6
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.8
