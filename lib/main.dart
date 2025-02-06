@@ -70,6 +70,9 @@ class _RiveDemoPageState extends State<RiveDemoPage> {
                   setState(() {
                     _isActive = value;
                   });
+                  if (_isActive) {
+                    _activateAutoIncrease();
+                  }
                 },
               )
             ],
@@ -77,6 +80,31 @@ class _RiveDemoPageState extends State<RiveDemoPage> {
         }),
       ),
     );
+  }
+
+  void _activateAutoIncrease()  async {
+    setState(() {
+      _isActive = true;
+      _progressPercentage = 0;
+    });
+
+    const duration = Duration(seconds: 10);
+    const stepsPrSecond = 100;
+    final totalSteps = duration.inSeconds * stepsPrSecond;
+    final updateFrequency = duration.inMilliseconds / totalSteps;
+    final stepSize = 100 / totalSteps;
+    while(_isActive) {
+      final newProgressState = _progressPercentage + stepSize;
+      setState(() {
+        _progressPercentage = newProgressState.clamp(0, 100);
+      });
+      if (_progressPercentage == 100) {
+        setState(() {
+          _isActive = false;
+        });
+      }
+      await Future.delayed(Duration(milliseconds: updateFrequency.round()));
+    }
   }
 }
 
