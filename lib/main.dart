@@ -82,7 +82,7 @@ class _RiveDemoPageState extends State<RiveDemoPage> {
     );
   }
 
-  void _activateAutoIncrease()  async {
+  void _activateAutoIncrease() async {
     setState(() {
       _isActive = true;
       _progressPercentage = 0;
@@ -93,7 +93,7 @@ class _RiveDemoPageState extends State<RiveDemoPage> {
     final totalSteps = duration.inSeconds * stepsPrSecond;
     final updateFrequency = duration.inMilliseconds / totalSteps;
     final stepSize = 100 / totalSteps;
-    while(_isActive) {
+    while (_isActive) {
       final newProgressState = _progressPercentage + stepSize;
       setState(() {
         _progressPercentage = newProgressState.clamp(0, 100);
@@ -131,6 +131,14 @@ class _FancyProgressBarState extends State<FancyProgressBar> {
   }
 
   @override
+  Widget build(BuildContext context) {
+    final artboard = _riveArtboard;
+    if (artboard == null) return Container();
+
+    return Rive(artboard: artboard);
+  }
+
+  @override
   void didUpdateWidget(FancyProgressBar oldWidget) {
     super.didUpdateWidget(oldWidget);
 
@@ -154,14 +162,6 @@ class _FancyProgressBarState extends State<FancyProgressBar> {
 
     setState(() => _riveArtboard = artboard);
     _updateFromWidget();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final artboard = _riveArtboard;
-    if (artboard == null) return Container();
-
-    return Rive(artboard: artboard);
   }
 
   void _updateFromWidget() {
